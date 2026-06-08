@@ -1,0 +1,7 @@
+# Archivos temporales / del sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+*.tmp
+_test_*.pdf
+_dom.html

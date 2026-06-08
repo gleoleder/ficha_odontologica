@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha Odontológica</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════ BARRA SUPERIOR (no se imprime) ══════════ -->
+<header class="topbar no-print">
+  <h1>🦷 Ficha Odontológica</h1>
+  <nav>
+    <button id="nav-nueva"  class="btn">+ Nueva ficha</button>
+    <button id="nav-lista"  class="btn ghost">Pacientes</button>
+    <button id="btn-print"  class="btn ghost">🖨 Imprimir</button>
+    <button id="btn-pdf"    class="btn ghost">📄 PDF</button>
+    <button id="btn-config" class="btn ghost">⚙</button>
+  </nav>
+</header>
+
+<!-- ══════════ PANTALLA: LISTA DE PACIENTES ══════════ -->
+<section id="view-lista" class="view no-print hidden">
+  <div class="lista-head">
+    <input id="buscar" type="search" placeholder="Buscar por apellido o nombre…">
+  </div>
+  <div id="lista-fichas" class="lista-fichas"></div>
+</section>
+
+<!-- ══════════ PANTALLA: FICHA (también es lo que se imprime) ══════════ -->
+<main id="view-ficha" class="view">
+ <form id="ficha-form" class="hoja">
+
+  <!-- I. ANTECEDENTES PERSONALES -->
+  <h2 class="sec">I. &nbsp;ANTECEDENTES PERSONALES</h2>
+  <div class="grid-4 linea-campos">
+    <label>Ap. Paterno <input name="ap_paterno"></label>
+    <label>Ap. Materno <input name="ap_materno"></label>
+    <label>Nombre <input name="nombre"></label>
+    <label>Ap. del Esposo <input name="ap_esposo"></label>
+  </div>
+  <div class="grid-4 linea-campos">
+    <label>Edad <input name="edad" type="number" min="0" max="120" style="max-width:90px"></label>
+    <label class="col-2">Domicilio <input name="domicilio"></label>
+    <label>Teléfono <input name="telefono"></label>
+  </div>
+
+  <!-- II. ANTECEDENTES PATOLÓGICOS -->
+  <h2 class="sec">II. &nbsp;ANTECEDENTES PATOLÓGICOS (PERSONAL Y FAMILIARES)</h2>
+  <div class="grid-2 linea-campos">
+    <label>Alergias <input name="alergias"></label>
+    <label>Hepatitis <input name="hepatitis"></label>
+    <label>Diabetes <input name="diabetes"></label>
+    <label>Enf. Renal <input name="enf_renal"></label>
+    <label>Hipertensión <input name="hipertension"></label>
+    <label>Enf. Gástricas <input name="enf_gastricas"></label>
+    <label>Embarazo <input name="embarazo"></label>
+    <label>Trastornos Psicológicos <input name="trastornos_psico"></label>
+    <label>CA <input name="ca"></label>
+    <label>VIH <input name="vih"></label>
+    <label>Tuberculosis <input name="tuberculosis"></label>
+    <label>Hemorragias <input name="hemorragias"></label>
+    <label>Cardiopatías <input name="cardiopatias"></label>
+    <label>Otros <input name="otros_pat"></label>
+  </div>
+  <label class="full linea-campos">Observaciones <input name="observaciones_pat"></label>
+
+  <!-- III - VII -->
+  <label class="full linea-campos"><b>III.</b> &nbsp;MOTIVO DE CONSULTA <input name="motivo_consulta"></label>
+  <label class="full linea-campos"><b>IV.</b> &nbsp;ENFERMEDAD ACTUAL <input name="enfermedad_actual"></label>
+
+  <h2 class="sec"><b>V.</b> &nbsp;EXAMEN CLÍNICO BUCODENTAL</h2>
+  <div class="examen-row">
+    <span>Higiene Oral Inicial:</span>
+    <label class="chk">M <input type="radio" name="higiene" value="M"></label>
+    <label class="chk">R <input type="radio" name="higiene" value="R"></label>
+    <label class="chk">B <input type="radio" name="higiene" value="B"></label>
+  </div>
+  <div class="examen-row">
+    <span>Portador de Prótesis:</span>
+    <label>Fija <input name="protesis_fija"></label>
+    <label>Removible <input name="protesis_removible"></label>
+  </div>
+  <div class="examen-row">
+    <span><b>VI.</b> Recibió Tratamiento Odontológico</span>
+    <label class="chk">SÍ <input type="radio" name="trat_previo" value="SI"></label>
+    <label class="chk">NO <input type="radio" name="trat_previo" value="NO"></label>
+    <input name="trat_previo_obs" class="flex1">
+  </div>
+  <label class="full linea-campos"><b>VII.</b> Presenta Problemas o dolor en ATM <input name="atm"></label>
+
+  <!-- ══════════ ODONTOGRAMA ══════════ -->
+  <h2 class="sec">ODONTOGRAMA</h2>
+
+  <!-- En pantallas pequeñas se muestra este botón que abre el odontograma
+       en una ventana grande; en pantallas grandes está oculto. -->
+  <button type="button" id="btn-abrir-odonto" class="btn odo-abrir-btn no-print">
+    🦷 Ver / editar odontograma
+  </button>
+
+  <div id="odonto-host">
+  <div class="odontograma-wrap">
+    <div id="odontograma"><!-- generado por JS --></div>
+
+    <!-- Cuantificación OMS / COPD -->
+    <div class="oms-box">
+      <div class="oms-title">Cuantificación de la OMS para el índice COPD</div>
+      <table class="oms-tabla">
+        <tr><td>0,0 a 1,1</td><td>:</td><td>muy bajo</td><td class="oms-dot" data-r="muy bajo"></td></tr>
+        <tr><td>1,2 a 2,6</td><td>:</td><td>bajo</td><td class="oms-dot" data-r="bajo"></td></tr>
+        <tr><td>2,7 a 4,4</td><td>:</td><td>moderado</td><td class="oms-dot" data-r="moderado"></td></tr>
+        <tr><td>4,5 a 6,5</td><td>:</td><td>alto</td><td class="oms-dot" data-r="alto"></td></tr>
+      </table>
+      <!-- Conteo COPD calculado automáticamente -->
+      <table class="copd-tabla">
+        <tr><td>c</td><td>e</td><td>o</td><td class="span3"></td></tr>
+        <tr><td id="copd-c">0</td><td id="copd-e">0</td><td id="copd-o">0</td>
+            <td>C</td><td>P</td><td>O</td></tr>
+        <tr><td>C</td><td>P</td><td>O</td><td id="COPD-C">0</td><td id="COPD-P">0</td><td id="COPD-O">0</td></tr>
+        <tr class="copd-total"><td colspan="3">Índice COPD</td>
+            <td colspan="3"><b id="copd-index">0,0</b> <span id="copd-rango"></span></td></tr>
+      </table>
+    </div>
+  </div>
+  </div><!-- /#odonto-host -->
+
+  <!-- NOMENCLATURA + FLÚOR -->
+  <div class="bottom-grid">
+    <div>
+      <h3>NOMENCLATURA</h3>
+      <table class="nomen"><tbody id="nomen-body"><!-- generado por JS --></tbody></table>
+    </div>
+
+    <div>
+      <h3>USO DE CEPILLO</h3>
+      <table class="mini">
+        <tr><td>Cuántas veces al día</td><td><input name="cepillo_veces"></td></tr>
+        <tr><td>Después de Comida</td><td><input type="checkbox" name="cepillo_comida"></td></tr>
+        <tr><td>Ocasionalmente</td><td><input type="checkbox" name="cepillo_ocasional"></td></tr>
+        <tr><td>Nunca</td><td><input type="checkbox" name="cepillo_nunca"></td></tr>
+      </table>
+    </div>
+
+    <div>
+      <h3>APLICACIÓN DE FLÚOR</h3>
+      <table class="mini">
+        <tr><td>1ª Aplicación</td><td><input name="fluor_1"></td></tr>
+        <tr><td>2ª Aplicación</td><td><input name="fluor_2"></td></tr>
+        <tr><td>3ª Aplicación</td><td><input name="fluor_3"></td></tr>
+      </table>
+    </div>
+
+    <div>
+      <h3>PERIODONCIA</h3>
+      <table class="mini perio">
+        <tr><td>Presencia de Tártaro</td>     <td><label><input type="radio" name="p_tartaro" value="SI">SÍ</label> <label><input type="radio" name="p_tartaro" value="NO">NO</label></td></tr>
+        <tr><td>Presencia de Cálculo</td>     <td><label><input type="radio" name="p_calculo" value="SI">SÍ</label> <label><input type="radio" name="p_calculo" value="NO">NO</label></td></tr>
+        <tr><td>Bolsas Periodontales</td>     <td><label><input type="radio" name="p_bolsas" value="SI">SÍ</label> <label><input type="radio" name="p_bolsas" value="NO">NO</label></td></tr>
+        <tr><td>Movilidad Dentaria</td>       <td><label><input type="radio" name="p_movilidad" value="SI">SÍ</label> <label><input type="radio" name="p_movilidad" value="NO">NO</label></td></tr>
+        <tr><td>Grado de Movilidad</td>       <td><input name="p_grado"></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="firma">
+    <div class="firma-linea"></div>
+    Sello y Firma
+  </div>
+ </form>
+
+ <div class="acciones no-print">
+   <button type="button" id="btn-guardar" class="btn">💾 Guardar ficha</button>
+   <button type="button" id="btn-nueva-limpiar" class="btn ghost">Limpiar / Nueva</button>
+   <span id="estado-guardado" class="estado"></span>
+ </div>
+</main>
+
+<!-- ══════════ MODAL: odontograma a pantalla completa (móvil) ══════════ -->
+<!-- En pantallas pequeñas, el odontograma se traslada aquí dentro para
+     verse grande. El contenido (#odonto-host) se mueve con JS. -->
+<div id="odonto-modal" class="modal hidden no-print">
+  <div class="modal-box odonto-modal-box">
+    <button type="button" id="odonto-x" class="modal-x" aria-label="Cerrar">&times;</button>
+    <div class="modal-title">Odontograma</div>
+    <div id="odonto-modal-body"><!-- aquí se mueve #odonto-host --></div>
+    <button type="button" id="odonto-cerrar" class="btn">Listo</button>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: seleccionar estado del diente ══════════ -->
+<div id="diente-modal" class="modal hidden no-print">
+  <div class="modal-box">
+    <button type="button" id="modal-x" class="modal-x" aria-label="Cerrar">&times;</button>
+    <div class="modal-title">Diente <span id="modal-diente-num"></span></div>
+    <div id="modal-opciones" class="modal-opciones"></div>
+    <button type="button" id="modal-cerrar" class="btn ghost">Cerrar</button>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: configuración ══════════ -->
+<div id="config-modal" class="modal hidden no-print">
+  <div class="modal-box">
+    <div class="modal-title">Configuración — Sincronización nube</div>
+    <label class="full">URL del Apps Script
+      <input id="cfg-url" placeholder="https://script.google.com/macros/s/.../exec">
+    </label>
+    <p class="hint">Pega la URL del Web App para guardar las fichas en Google Sheets. Si la dejas vacía, todo se guarda solo en este dispositivo.</p>
+    <div class="acciones">
+      <button type="button" id="cfg-guardar" class="btn">Guardar</button>
+      <button type="button" id="cfg-cerrar" class="btn ghost">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
