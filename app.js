@@ -456,8 +456,6 @@ async function init() {
 
   document.getElementById('nav-nueva').addEventListener('click', () => { limpiarFicha(); mostrarVista('ficha'); });
   document.getElementById('nav-lista').addEventListener('click', () => mostrarVista('lista'));
-  document.getElementById('btn-print').addEventListener('click', () => window.print());
-  document.getElementById('btn-pdf').addEventListener('click', () => window.print()); // navegador → "Guardar como PDF"
   document.getElementById('btn-guardar').addEventListener('click', guardar);
   document.getElementById('btn-nueva-limpiar').addEventListener('click', limpiarFicha);
   const cerrarDiente = () => document.getElementById('diente-modal').classList.add('hidden');
