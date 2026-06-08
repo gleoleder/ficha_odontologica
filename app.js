@@ -410,7 +410,8 @@ async function renderLista(query = '') {
       </div>
       <div class="ficha-acts">
         <button class="btn small" data-abrir="${f.id}">Abrir</button>
-        <button class="btn small ghost" data-del="${f.id}">🗑</button>
+        <button class="btn small ghost" data-print="${f.id}" title="Imprimir esta ficha">🖨</button>
+        <button class="btn small ghost" data-del="${f.id}" title="Eliminar">🗑</button>
       </div>`;
     cont.appendChild(card);
   });
@@ -420,6 +421,15 @@ async function renderLista(query = '') {
       const f = await DB.getFicha(Number(b.dataset.abrir));
       cargarFicha(f);
       mostrarVista('ficha');
+    }));
+  // Imprimir una ficha desde la lista: se carga, se muestra y se imprime
+  cont.querySelectorAll('[data-print]').forEach(b =>
+    b.addEventListener('click', async () => {
+      const f = await DB.getFicha(Number(b.dataset.print));
+      cargarFicha(f);
+      mostrarVista('ficha');
+      // esperar a que el odontograma y el DOM se pinten antes de imprimir
+      setTimeout(() => window.print(), 150);
     }));
   cont.querySelectorAll('[data-del]').forEach(b =>
     b.addEventListener('click', async () => {

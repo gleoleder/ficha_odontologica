@@ -37,7 +37,12 @@ body{
   padding:8px 14px;font-weight:600;cursor:pointer;font-size:13px;
 }
 .btn:hover{filter:brightness(1.05);}
-.btn.ghost{background:rgba(255,255,255,.15);color:#fff;}
+/* ghost por defecto: legible sobre fondo CLARO (gris/blanco) */
+.btn.ghost{background:#e4e9ee;color:#2a3340;border:1px solid var(--bord);}
+.btn.ghost:hover{background:#d6dde4;}
+/* dentro de la barra navy, el ghost va en blanco translúcido */
+.topbar .btn.ghost{background:rgba(255,255,255,.15);color:#fff;border:none;}
+.topbar .btn.ghost:hover{background:rgba(255,255,255,.28);}
 .btn.small{padding:5px 10px;font-size:12px;}
 .btn.ghost.small{background:#e4e9ee;color:#333;}
 
