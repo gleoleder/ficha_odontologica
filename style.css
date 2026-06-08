@@ -192,14 +192,21 @@ body{
    el odontograma se ve inline normal. */
 .odo-abrir-btn{display:none;}
 
-/* La ventana emergente del odontograma: caja más ancha y alta */
-.odonto-modal-box{width:min(620px,96vw);max-height:92vh;}
-#odonto-modal-body{margin:6px 0 12px;overflow:auto;}
-/* Dentro del modal el odontograma se ve grande y centrado */
+/* La ventana emergente del odontograma: caja casi a pantalla completa */
+.odonto-modal-box{width:96vw;max-width:680px;max-height:92vh;}
+#odonto-modal-body{margin:6px 0 12px;overflow-x:hidden;overflow-y:auto;}
+/* Dentro del modal el odontograma se ve completo y centrado */
 #odonto-modal-body .odontograma-wrap{grid-template-columns:1fr;gap:14px;}
-#odonto-modal-body #odontograma{align-items:center;overflow-x:auto;}
-#odonto-modal-body .odo-fila{justify-content:center;}
-#odonto-modal-body .diente-svg{width:30px;height:41px;}
+#odonto-modal-body #odontograma{align-items:center;overflow:visible;gap:8px;}
+#odonto-modal-body .odo-fila{justify-content:center;gap:1px;}
+#odonto-modal-body .odo-sep{margin:0 3px;}
+/* Dientes con tamaño FLUIDO: las 16 piezas siempre caben en el ancho
+   del modal (≈96vw). Tope de 30px en pantallas anchas. */
+#odonto-modal-body .diente-svg{
+  width:clamp(13px, 5vw, 30px);
+  height:auto;aspect-ratio:40/56;
+}
+#odonto-modal-body .diente-num{font-size:9px;}
 #odonto-modal-body .oms-box{max-width:420px;margin:8px auto 0;}
 
 /* Tablets y ventanas medianas */
